@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+
+  </head>
+  
+    <body style="background: linear-gradient(to right, #aec2d8d5, #478edf)">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          
+          {% for category,message in messages %}
+          
+          <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+              <strong>{{message}}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          {% endfor %}
+
+      {% endif %}
+      {% endwith %}
+    
+    <div style="box-shadow: 1px 1px 1px 1px rgb(224, 76, 38); background-color: aliceblue;margin-top:150px;border-radius:6px;" class="container" >
+    {% block contenido %}
+         
+            <form class="mb-4  p-3" action="{{url_for('descarga')}}" id="data" name="data" method="post">
+                <h2  align="center" > Descargar de Youtube</h2>
+                <div>
+                    <label for="Dlink" class="form-label">Dirección URL Youtube</label>
+                    <input type="text" class="form-control" id="Dlink" name="Dlink" aria-describedby="urlAyuda" required>
+                    <div id="urlAyuda" class="form-text">Ingresa dirección web del video </div>
+                    <input type="hidden" id="tipo" value="valor" name="tipo">
+      
+                  </div>
+                <div align="center">
+                    <button type="button" class="btn btn-success" id="DYLink" onclick="Youtube_Tipo()">Descargar</button>
+                </div>
+            </form>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Seleccione tu tipo de Descarga</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <h6>Video - MP4</h6>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Resolucion</th>
+                          <th scope="col">Descargar</th>
+                         
+                         
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1080p</th>
+                          <td> <button type="button" class="btn btn-success" onclick="DescargarYT(398)">Descargar</button> </td>
+                         
+                        </tr>
+                        <tr>
+                          <th scope="row">720p</th>
+                          <td> <button type="button" class="btn btn-success" onclick="DescargarYT(136)">Descargar</button> </td>
+                         
+                        </tr>
+                        <tr>
+                          <th scope="row">480p</th>
+                          <td> <button type="button" class="btn btn-success" onclick="DescargarYT(135)">Descargar</button> </td>
+                         
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  <hr>
+                    <h6>Musica -MP3</h6>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Calidad</th>
+                          <th scope="col">Descargar</th>
+                         
+                         
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">128kbps</th>
+                          <td> <button type="button" class="btn btn-success" onclick="DescargarYT(128)">Descargar</button> </td>
+                         
+                        </tr>
+                        <tr>
+                          <th scope="row">192kbps</th>
+                          <td> <button type="button" class="btn btn-success" onclick="DescargarYT(192)">Descargar</button> </td>
+                         
+                        </tr>
+                        <tr>
+                          <th scope="row">320kbps</th>
+                          <td> <button type="button" class="btn btn-success" onclick="DescargarYT(320)">Descargar</button> </td>
+                         
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+    {% endblock %}</div>
+      
+    <script type="text/javascript">
+      function Youtube_Tipo(){
+          
+        $('#exampleModal').modal('show');
+          
+      }
+      function DescargarYT(params) {
+        document.getElementById('tipo').value= params;
+        document.data.submit();
+      }
+        
+         
+    </script>  
+  </body>
+    
+</html>
